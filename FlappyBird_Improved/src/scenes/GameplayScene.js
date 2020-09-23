@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { config } from '../main'
 
 let gameOptions = {
     sparksGravity: 800,
@@ -12,8 +13,6 @@ let gameOptions = {
     carGap: [100, 130],
     localStorageName: 'sparksDodgeScore'
 }
-
-const configHeight = 480
 
 export default class GameplayScene extends Phaser.Scene {
     constructor() {
@@ -34,7 +33,7 @@ export default class GameplayScene extends Phaser.Scene {
             this.placeCars(false)
         }
         this.carGroup.setVelocityX(-gameOptions.sparksSpeed)
-        this.sparks = this.physics.add.sprite(80, configHeight / 2, 'sparks')
+        this.sparks = this.physics.add.sprite(80, config.scale.height / 2, 'sparks')
         this.sparks.body.gravity.y = gameOptions.sparksGravity
         this.input.on('pointerdown', this.flap, this)
         this.input.keyboard.on('keydown-SPACE', this.flap, this);
@@ -57,7 +56,7 @@ export default class GameplayScene extends Phaser.Scene {
     placeCars(addScore) {
         let rightMost = this.getRightMostCar()
         let carGapHeight = Phaser.Math.Between(gameOptions.carGap[0], gameOptions.carGap[1])
-        let carGapPosition = Phaser.Math.Between(gameOptions.minCarHeight + carGapHeight / 2, configHeight - gameOptions.minCarHeight - carGapHeight / 2)
+        let carGapPosition = Phaser.Math.Between(gameOptions.minCarHeight + carGapHeight / 2, config.scale.height - gameOptions.minCarHeight - carGapHeight / 2)
         this.carPool[0].x = rightMost + this.carPool[0].getBounds().width + Phaser.Math.Between(gameOptions.carDistance[0], gameOptions.carDistance[1])
         this.carPool[0].y = carGapPosition - carGapHeight / 2
         this.carPool[0].setOrigin(0, 1)
@@ -83,7 +82,7 @@ export default class GameplayScene extends Phaser.Scene {
         this.physics.world.collide(this.sparks, this.carGroup, function() {
             this.die()
         }, null, this)
-        if (this.sparks.y > configHeight || this.sparks.y < 0) {
+        if (this.sparks.y > config.scale.height || this.sparks.y < 0) {
             this.die()
         }
         this.carGroup.getChildren().forEach(function(car) {
