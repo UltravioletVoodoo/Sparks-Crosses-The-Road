@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import GameplayScene from './scenes/GameplayScene'
+import TitleScene from './scenes/TitleScene'
 
 export const config = {
 	type: Phaser.AUTO,
@@ -15,8 +16,14 @@ export const config = {
 			gravity: { y: 0 },
 			debug: false
 		}
-	},
-	scene: [GameplayScene]
+	}
 }
 
-export default new Phaser.Game(config)
+let game = new Phaser.Game(config)
+
+// Load Scenes
+game.scene.add('TitleScene', TitleScene)
+game.scene.add('GameplayScene', GameplayScene)
+
+// Start the Title Screen
+game.scene.start('TitleScene')
