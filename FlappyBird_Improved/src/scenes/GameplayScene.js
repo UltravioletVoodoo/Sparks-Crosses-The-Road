@@ -105,6 +105,6 @@ export default class GameplayScene extends Phaser.Scene {
 
     die() {
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore))
-        this.scene.start('GameplayScene')
+        this.scene.start('GameOverScene')
     }
 }
