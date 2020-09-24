@@ -17,7 +17,7 @@ export default class TitleScene extends Phaser.Scene {
             y: config.scale.height / 2
         }
         this.add.text(center.x, center.y, 'Press Spacebar to start').setOrigin(0.5)
-        this.input.keyboard.on('keydown-SPACE', this.startGame)
+        this.input.keyboard.on('keydown-SPACE', this.startGame, this)
         console.log(this.scene)
     }
 
