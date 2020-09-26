@@ -22,6 +22,7 @@ export default class GameplayScene extends Phaser.Scene {
     preload() {
         this.load.image('sparks', 'Sparks.png')
         this.load.image('car', 'Car.png')
+        this.load.spritesheet('youDied', 'youDied.png')
     }
 
     create() {
@@ -41,6 +42,11 @@ export default class GameplayScene extends Phaser.Scene {
         this.topScore = localStorage.getItem(gameOptions.localStorageName) === null ? 0 : localStorage.getItem(gameOptions.localStorageName)
         this.scoreText = this.add.text(10, 10, '')
         this.updateScore(this.score)
+
+        this.anims.create({
+            key: 'youDied',
+            frames: this.anims.generateFrameNames('YouDied_Frame', {start: 0, end: 96})
+        })
     }
 
     flap() {
@@ -105,6 +111,7 @@ export default class GameplayScene extends Phaser.Scene {
 
     die() {
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore))
-        this.scene.start('GameOverScene')
+        this.scene.launch('GameOverScene')
+        this.scene.pause()
     }
 }
