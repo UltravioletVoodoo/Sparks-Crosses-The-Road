@@ -1,19 +1,28 @@
 import Phaser from 'phaser'
 import { config } from '../main'
 
+let sprite = undefined
+
 export default class GameOverScene extends Phaser.Scene {
+
     constructor() {
         super('GameOverScene')
     }
 
     preload() {
-        this.load.image('youDied', 'YouDied_Frame0060.png')
+        this.load.spritesheet('youDied', 'youDiedSheet2.png', {frameWidth: 320, frameHeight: 480})
     }
 
     create() {
         this.input.keyboard.on('keydown-SPACE', this.restart, this)
 
-        this.add.image(0, 0, 'youDied').setOrigin(0, 0)
+        this.anims.create({
+            key: 'deathAnimation',
+            frames: this.anims.generateFrameNumbers('youDied', {start: 0, end: 96}),
+            frameRate: 24
+        })
+
+        sprite = this.add.sprite(0, 0, 'youDied').setOrigin(0, 0).play('deathAnimation')
 
 
         const textPos = {
