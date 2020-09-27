@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { defaultSettings } from '../constants/defaultSettings'
 import { config } from '../main'
 
 let gameOptions = {
@@ -14,6 +15,8 @@ let gameOptions = {
     localStorageName: 'highScore'
 }
 
+let settings
+
 export default class GameplayScene extends Phaser.Scene {
     constructor() {
         super('GameplayScene')
@@ -24,13 +27,18 @@ export default class GameplayScene extends Phaser.Scene {
         this.load.image('car', 'Car.png')
         this.load.spritesheet('youDied', 'youDied.png')
         this.load.audio('gameplayMusic', 'sparksGameplayMusic.mp3')
+        this.load.audio('sparksMindMode', 'rollMusic.mp3')
         this.load.audio('flap', 'sparksFlapSfx.mp3')
     }
 
     create() {
+        settings = localStorage.getItem('settings') ? JSON.parse(localStorage.getItem('settings')) : defaultSettings
+
         this.sound.stopAll()
-        this.sound.play('gameplayMusic', {
-            rate: 1,
+        const music = settings.sparksMindMode ? 'sparksMindMode' : 'gameplayMusic'
+        this.sound.play(music, {
+            volume: settings.musicVolume,
+            rate: settings.caterpillarNess,
             loop: true
         })
         this.carGroup = this.physics.add.group()
@@ -58,7 +66,7 @@ export default class GameplayScene extends Phaser.Scene {
 
     flap() {
         this.sound.play('flap', {
-            volume: 0.5
+            volume: settings.sfxVolume
         })
         this.sparks.body.velocity.y = -gameOptions.sparksFlapPower
         gameOptions.sparksRotationSpeed = gameOptions.sparksFlapSpin
