@@ -23,9 +23,16 @@ export default class GameplayScene extends Phaser.Scene {
         this.load.image('sparks', 'Sparks.png')
         this.load.image('car', 'Car.png')
         this.load.spritesheet('youDied', 'youDied.png')
+        this.load.audio('gameplayMusic', 'sparksGameplayMusic.mp3')
+        this.load.audio('flap', 'sparksFlapSfx.mp3')
     }
 
     create() {
+        this.sound.stopAll()
+        this.sound.play('gameplayMusic', {
+            rate: 1,
+            loop: true
+        })
         this.carGroup = this.physics.add.group()
         this.carPool = []
         for (let i=0; i < 4; i++) {
@@ -50,6 +57,9 @@ export default class GameplayScene extends Phaser.Scene {
     }
 
     flap() {
+        this.sound.play('flap', {
+            volume: 0.5
+        })
         this.sparks.body.velocity.y = -gameOptions.sparksFlapPower
         gameOptions.sparksRotationSpeed = gameOptions.sparksFlapSpin
     }

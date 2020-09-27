@@ -11,9 +11,12 @@ export default class GameOverScene extends Phaser.Scene {
 
     preload() {
         this.load.spritesheet('youDied', 'youDiedSheet2.png', {frameWidth: 320, frameHeight: 480})
+        this.load.audio('deathAudio', 'sparksDeathSfx.mp3')
     }
 
     create() {
+        this.sound.stopAll()
+        this.sound.play('deathAudio')
         this.input.keyboard.on('keydown-SPACE', this.restart, this)
 
         this.anims.create({
