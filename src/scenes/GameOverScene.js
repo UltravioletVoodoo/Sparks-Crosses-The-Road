@@ -25,6 +25,7 @@ export default class GameOverScene extends Phaser.Scene {
         })
 
         this.add.sprite(0, 0, 'youDied').setOrigin(0, 0).play('deathAnimation')
+        
         this.add.sprite(config.scale.width - 32, 0, 'options')
             .setOrigin(0, 0)
             .setInteractive()
