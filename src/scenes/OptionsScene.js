@@ -108,8 +108,10 @@ export default class OptionsScene extends Phaser.Scene {
             .setOrigin(0.5)
         
 
-        this.add.text(center.x, config.scale.height * 0.95, 'Press SPACE to restart').setOrigin(0.5)
-        this.input.on('pointerdown', this.startGame, this)
+        this.add.text(center.x, config.scale.height * 0.95, 'Press SPACE to restart')
+            .setOrigin(0.5)
+            .setInteractive()
+            .on('pointerdown', this.startGame, this)
         this.input.keyboard.on('keydown-SPACE', this.startGame, this)
     }
 
