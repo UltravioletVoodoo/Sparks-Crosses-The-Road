@@ -11,7 +11,7 @@ let gameOptions = {
     minCarHeight: 50,
     carDistance: [220, 280],
     carGap: [100, 130],
-    localStorageName: 'sparksDodgeScore'
+    localStorageName: 'highScore'
 }
 
 export default class GameplayScene extends Phaser.Scene {

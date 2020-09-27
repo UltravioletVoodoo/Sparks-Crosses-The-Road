@@ -1,8 +1,6 @@
 import Phaser from 'phaser'
 import { config } from '../main'
 
-let sprite = undefined
-
 export default class GameOverScene extends Phaser.Scene {
 
     constructor() {
@@ -12,6 +10,7 @@ export default class GameOverScene extends Phaser.Scene {
     preload() {
         this.load.spritesheet('youDied', 'youDiedSheet2.png', {frameWidth: 320, frameHeight: 480})
         this.load.audio('deathAudio', 'sparksDeathSfx.mp3')
+        this.load.image('options', 'optionsCog.png')
     }
 
     create() {
@@ -25,7 +24,11 @@ export default class GameOverScene extends Phaser.Scene {
             frameRate: 24
         })
 
-        sprite = this.add.sprite(0, 0, 'youDied').setOrigin(0, 0).play('deathAnimation')
+        this.add.sprite(0, 0, 'youDied').setOrigin(0, 0).play('deathAnimation')
+        this.add.sprite(config.scale.width - 32, 0, 'options')
+            .setOrigin(0, 0)
+            .setInteractive()
+            .on('pointerdown', this.openOptions, this)
 
 
         const textPos = {
@@ -33,6 +36,11 @@ export default class GameOverScene extends Phaser.Scene {
             y: config.scale.height * 0.75
         }
         this.add.text(textPos.x, textPos.y, 'Press SPACE to restart').setOrigin(0.5)
+    }
+
+    openOptions() {
+        this.scene.stop('GameplayScene')
+        this.scene.start('OptionsScene')
     }
 
     restart() {
