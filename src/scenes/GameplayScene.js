@@ -41,6 +41,7 @@ export default class GameplayScene extends Phaser.Scene {
             rate: settings.caterpillarNess,
             loop: true
         })
+        
         this.carGroup = this.physics.add.group()
         this.carPool = []
         for (let i=0; i < 4; i++) {
