@@ -18,7 +18,7 @@ export default class OptionsScene extends Phaser.Scene {
             sceneKey: 'rexUI'
         })
         this.load.image('checkbox', 'checkBox.png')
-        this.load.image('checkbox-filled', 'checkBox-Filled.png')
+        this.load.image('checkbox-filled', 'checkBox-filled.png')
     }
 
     create() {
@@ -109,6 +109,7 @@ export default class OptionsScene extends Phaser.Scene {
         
 
         this.add.text(center.x, config.scale.height * 0.95, 'Press SPACE to restart').setOrigin(0.5)
+        this.input.on('pointerdown', this.startGame, this)
         this.input.keyboard.on('keydown-SPACE', this.startGame, this)
     }
 

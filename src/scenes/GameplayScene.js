@@ -25,7 +25,6 @@ export default class GameplayScene extends Phaser.Scene {
     preload() {
         this.load.image('sparks', 'Sparks.png')
         this.load.image('car', 'Car.png')
-        this.load.spritesheet('youDied', 'youDied.png')
         this.load.audio('gameplayMusic', 'sparksGameplayMusic.mp3')
         this.load.audio('sparksMindMode', 'rollMusic.mp3')
         this.load.audio('flap', 'sparksFlapSfx.mp3')
@@ -58,11 +57,6 @@ export default class GameplayScene extends Phaser.Scene {
         this.topScore = localStorage.getItem(gameOptions.localStorageName) === null ? 0 : localStorage.getItem(gameOptions.localStorageName)
         this.scoreText = this.add.text(10, 10, '')
         this.updateScore(this.score)
-
-        this.anims.create({
-            key: 'youDied',
-            frames: this.anims.generateFrameNames('YouDied_Frame', {start: 0, end: 96})
-        })
     }
 
     flap() {
